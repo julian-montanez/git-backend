@@ -7,9 +7,9 @@ infoRouter.post("/", infoControler.create)
 
 infoRouter.get("/", infoControler.readAll)
 
-// infoRouter.get("/:id", infoControler.readOne)
+infoRouter.get("/:id", infoControler.readOne)
 
-infoRouter.get("/:name", infoControler.getName)
+// infoRouter.get("/:name", infoControler.getName)
 
 infoRouter.get("/:flavor/:name", infoControler.getFlavorAndName)
 

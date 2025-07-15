@@ -3,8 +3,8 @@ import infoSchema from "../models/informacion.js"
 const infoControler = {
 create: async (req, res)=>{
     try {
-        const {name, flavor, ingredients, image} = req.body
-        const newinfo = new infoSchema({name, flavor, ingredients, image});
+        const {nameDessert, ingredients, howToMake, category, image} = req.body
+        const newinfo = new infoSchema({nameDessert, ingredients, howToMake, category, image});
         const infoCre = await newinfo.save()
         res.status(201).json({allOk: true, message: "info created", data: infoCre})
     } catch (error) {
@@ -31,59 +31,59 @@ readAll: async (req, res)=>{
         })
     }
 },
-// readOne: async (req, res)=>{
-//     try {
-//         const {id} = req.params
-//         const info = await infoSchema.findById(id)
-//         if (!info) {
-//             res.status(404).json({
-//             allOk: false,
-//             message: `info with id:${id}, not found `,
-//             data: error.message
-//         })
-//         }
-//         res.status(200).json({
-//             allOk: true,
-//             message: `info with id:${id}, found `,
-//             data: info
-//         })
-//     } catch (error) {
-//         res.status(500).json({
-//             allOk: false,
-//             message: "error reading info",
-//             data: null
-//         })
-//     }
-// },
-getName: async (req, res)=>{
+readOne: async (req, res)=>{
     try {
-        const {name} = req.params
-        const infoName = await infoSchema.find({name})
-        if (!infoName) {
+        const {id} = req.params
+        const info = await infoSchema.findById(id)
+        if (!info) {
             res.status(404).json({
             allOk: false,
-            message: `info with name:${name}, not found `,
+            message: `info with id:${id}, not found `,
             data: error.message
         })
         }
         res.status(200).json({
             allOk: true,
-            message: `info with name:${name}, found `,
-            data: infoName
+            message: `info with id:${id}, found `,
+            data: info
         })
     } catch (error) {
         res.status(500).json({
             allOk: false,
-            message: "error get name info",
-            data: error.message
+            message: "error reading info",
+            data: null
         })
     }
 },
+// getName: async (req, res)=>{
+//     try {
+//         const {name} = req.params
+//         const infoName = await infoSchema.find({name})
+//         if (infoName != name) {
+//             res.status(404).json({
+//             allOk: false,
+//             message: `info with name:${name}, not found `,
+//             data: error.message
+//         })
+//         }
+//         res.status(200).json({
+//             allOk: true,
+//             message: `info with name:${name}, found `,
+//             data: infoName
+//         })
+//     } catch (error) {
+//         res.status(500).json({
+//             allOk: false,
+//             message: "error get name info",
+//             data: error.message
+//         })
+//     }
+// },
 getFlavorAndName: async (req, res)=>{
     try {
         const {name, flavor} = req.params
-        const infoAgeAndName = await infoSchema.find({flavor, name})
-        if (!infoAgeAndName) {
+        const infoFlavorAndName = await infoSchema.find({flavor, name})
+        if (!infoFlavorAndName) {
             res.status(404).json({
             allOk: false,
             message: `info with name:${name}, not found `,
@@ -94,7 +94,7 @@ getFlavorAndName: async (req, res)=>{
         res.status(200).json({
             allOk: true,
             message: `info with name: ${name}, found `,
-            data: infoAgeAndName
+            data: infoFlavorAndName
         })
     } catch (error) {
         res.status(500).json({

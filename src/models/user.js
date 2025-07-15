@@ -1,21 +1,18 @@
 import { Schema, model } from "mongoose";
 
-const infoSchema = new Schema({
-    nameDessert: {
+const userSchema = new Schema({
+    name: {
         type: String
     },
-    ingredients: {
+    email: {
         type: String
     },
-    howToMake: {
+    password: {
         type: String
     },
-    category: {
-        type: String
-    },
-    image: {
+    Vpassword: {
         type: String
     }
 },{versionKey:false, timestamps:true});
 
-export default model("info", infoSchema);
+export default model("user", userSchema);
