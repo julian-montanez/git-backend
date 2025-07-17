@@ -9,4 +9,6 @@ userRouter.post("/log-in", userControler.loginUser)
 
 userRouter.get("/", userControler.readAll)
 
+userRouter.get("/:id", userControler.readOne)
+
 export default userRouter;

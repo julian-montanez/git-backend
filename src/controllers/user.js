@@ -19,6 +19,30 @@ create: async (req, res)=>{
         })
     }
 },
+readOne: async (req, res)=>{
+    try {
+        const {id} = req.params
+        const info = await userSchema.findById(id)
+        if (!info) {
+            res.status(404).json({
+            allOk: false,
+            message: `user with id:${id}, not found `,
+            data: error.message
+        })
+        }
+        res.status(200).json({
+            allOk: true,
+            message: `user with id:${id}, found `,
+            data: info
+        })
+    } catch (error) {
+        res.status(500).json({
+            allOk: false,
+            message: "error reading user",
+            data: null
+        })
+    }
+},
 readAll: async (req, res)=>{
     try {
         const users = await userSchema.find()

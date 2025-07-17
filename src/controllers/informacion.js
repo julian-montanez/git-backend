@@ -3,8 +3,8 @@ import infoSchema from "../models/informacion.js"
 const infoControler = {
 create: async (req, res)=>{
     try {
-        const {nameDessert, ingredients, howToMake, category, image} = req.body
-        const newinfo = new infoSchema({nameDessert, ingredients, howToMake, category, image});
+        const {nameDessert, ingredients, howToMake, category, image, userId} = req.body
+        const newinfo = new infoSchema({nameDessert, ingredients, howToMake, category, image, userId});
         const infoCre = await newinfo.save()
         res.status(201).json({allOk: true, message: "info created", data: infoCre})
     } catch (error) {
@@ -31,27 +31,51 @@ readAll: async (req, res)=>{
         })
     }
 },
-readOne: async (req, res)=>{
+readUserPosts: async (req, res)=>{
     try {
-        const {id} = req.params
-        const info = await infoSchema.findById(id)
+        const {userId} = req.params
+        const info = await infoSchema.find({userId})
         if (!info) {
             res.status(404).json({
             allOk: false,
-            message: `info with id:${id}, not found `,
+            message: `posts with userId:${userId}, not found `,
             data: error.message
         })
         }
         res.status(200).json({
             allOk: true,
-            message: `info with id:${id}, found `,
+            message: `posts with userId:${userId}, found `,
             data: info
         })
     } catch (error) {
         res.status(500).json({
             allOk: false,
             message: "error reading info",
-            data: null
+            data: error.message
+        })
+    }
+},
+readByIdAndCat: async (req, res)=>{
+    try {
+        const {category, _id} = req.params
+        const info = await infoSchema.find({category, _id})
+        if (!info) {
+            res.status(404).json({
+            allOk: false,
+            message: `info with id:${_id}, not found `,
+            data: error.message
+        })
+        }
+        res.status(200).json({
+            allOk: true,
+            message: `info with id:${_id}, found `,
+            data: info
+        })
+    } catch (error) {
+        res.status(500).json({
+            allOk: false,
+            message: "error reading info",
+            data: error.message
         })
     }
 },
@@ -107,8 +131,8 @@ getFlavorAndName: async (req, res)=>{
 update: async (req, res)=>{
     try {
         const {id} = req.params
-        const {name, flavor, ingredients, image} = req.body
-        const infoUpdate = await infoSchema.findByIdAndUpdate(id, {name, flavor, ingredients, image})
+        const {nameDessert, ingredients, howToMake, category, image, userId} = req.body
+        const infoUpdate = await infoSchema.findByIdAndUpdate(id, {nameDessert, ingredients, howToMake, category, image, userId})
         if (!infoUpdate) {
             res.status(404).json({
             allOk: false,

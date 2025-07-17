@@ -15,6 +15,9 @@ const infoSchema = new Schema({
     },
     image: {
         type: String
+    },
+    userId: {
+        type: String
     }
 },{versionKey:false, timestamps:true});
 

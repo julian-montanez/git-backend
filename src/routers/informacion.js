@@ -7,7 +7,9 @@ infoRouter.post("/", infoControler.create)
 
 infoRouter.get("/", infoControler.readAll)
 
-infoRouter.get("/:id", infoControler.readOne)
+infoRouter.get("/:userId", infoControler.readUserPosts)
+
+infoRouter.get("/:category/:_id", infoControler.readByIdAndCat)
 
 // infoRouter.get("/:name", infoControler.getName)
 
